@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File a Complaint</title>
+    <link rel="stylesheet" href="style3.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD745ZXfntW5iLiz3hvz4rb4qNeHVqVXc4&callback=initMap" async defer></script>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            margin: 30px auto;
+            width: 50%;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input, select, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        #map {
+            height: 300px;
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .complaint-id {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>File a Complaint</h1>
+    </header>
+
+    <div class="container">
+        <h2>Submit Your Complaint</h2>
+
+        <div class="complaint-id">
+            Complaint ID: <span id="id-value">Generating..</span>
+        </div>
+
+        <form id="complaint-form">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" required>
+
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" required>
+
+            <label for="waste-type">Type of Waste:</label>
+            <select id="waste-type" required>
+                <option value="" disabled selected>Select Waste Type</option>
+                <option value="household">Household Waste</option>
+                <option value="industrial">Industrial Waste</option>
+                <option value="hazardous">Hazardous Waste</option>
+                <option value="recyclable">Recyclable Waste</option>
+                <option value="organic">Organic Waste</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="description">Complaint Description:</label>
+            <textarea id="description" rows="3" required></textarea>
+
+            <!-- Hidden location fields -->
+            <input type="hidden" id="locationLatitude">
+            <input type="hidden" id="locationLongitude">
+
+            <button type="submit">Submit Complaint</button>
+        </form>
+
+        <div id="map"></div>
+    </div>
+
+    <script>
+        let map, marker;
+
+        function generateComplaintID() {
+            const id = 'CID-' + Math.floor(Math.random() * 1000000);
+            document.getElementById('id-value').innerText = id;
+            return id;
+        }
+
+        function initMap() {
+            const defaultLocation = { lat: -34.397, lng: 150.644 };
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: defaultLocation
+            });
+
+            marker = new google.maps.Marker({
+                position: defaultLocation,
+                map: map,
+                draggable: true
+            });
+
+            google.maps.event.addListener(marker, 'dragend', function () {
+                document.getElementById('locationLatitude').value = marker.getPosition().lat();
+                document.getElementById('locationLongitude').value = marker.getPosition().lng();
+            });
+
+            fetchUserLocation();
+        }
+
+        function fetchUserLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    const userLocation = { lat, lng: lon };
+
+                    map.setCenter(userLocation);
+                    marker.setPosition(userLocation);
+                    document.getElementById('locationLatitude').value = lat;
+                    document.getElementById('locationLongitude').value = lon;
+                }, () => {
+                    alert('Unable to retrieve your location. Please allow location access.');
+                });
+            }
+        }
+        
+
+
+        document.getElementById("complaint-form").addEventListener("submit", function(event) {
+            event.preventDefault(); 
+
+            const complaintID = generateComplaintID();
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const wasteType = document.getElementById("waste-type").value;
+            const description = document.getElementById("description").value;
+            const lat = document.getElementById("locationLatitude").value;
+            const lon = document.getElementById("locationLongitude").value;
+
+            if (!name || !email || !wasteType || !description || !lat || !lon) {
+                alert("Please fill in all fields before submitting.");
+                return;
+            }
+
+            alert("Complaint Submitted Successfully!\nComplaint ID: " + complaintID);
+
+            window.location.href = "trackcomplaint.html";
+        });
+
+        window.onload = initMap;
+    </script>
+
+</body>
+</html>

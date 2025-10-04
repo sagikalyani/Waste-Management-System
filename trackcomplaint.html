@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Track Complaints</title>
+    <link rel="stylesheet" href="style3.css">
+</head>
+<body>
+    <header>
+        <h1>Waste Management System - Track Complaints</h1>
+    </header>
+    <section>
+        <h2>Track Your Complaint</h2>
+        <form id="track-complaint-form" action="TrackComplaint" method="post">
+            <label for="complaint-id">Complaint ID:</label>
+            <input type="text" id="complaint-id" name="complaint_id" required>
+            <input type="submit" value="Track Complaint">
+        </form>
+        <div id="complaint-status">
+            <p id="status-message"></p>
+        </div>
+    </section>
+</body>
+</html>

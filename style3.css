@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+html, body {
+    /* Remove the solid background color */
+    margin: 0; /* Remove default margins */
+    height: 100%; /* Full height for body */
+    font-family: 'Poppins', sans-serif;
+    color: #540832; /* Default text color */
+    
+    /* Background image settings */
+    background-image: url('https://daryo.uz/static/2024/08/26/IMG_9736-gt6Ruwmt.png'); /* Background image */
+    background-size: cover; /* Cover the entire screen */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Don't repeat the image */
+}
+
+::selection {
+    color: #d08686;
+    background: #d57b58;
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.container .form {
+    background: #ECDFCC; /* Slightly transparent background for better readability */
+    padding: 30px 35px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+}
+
+.container .form form .form-control {
+    height: 40px;
+    font-size: 15px;
+}
+
+.container .form form .forget-pass {
+    margin: -15px 0 15px 0;
+}
+
+.container .form form .forget-pass a {
+    font-size: 15px;
+}
+
+.container .form form .button {
+    background: #b0b0bd;
+    color: #540a4d;
+    font-size: 17px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.container .form form .button:hover {
+    background: #9494a2;
+}
+
+.container .form form .link {
+    padding: 5px 0;
+}
+
+.container .form form .link a {
+    color: #6a6a87;
+}
+
+.container .login-form form p {
+    font-size: 14px;
+}
+
+.container .row .alert {
+    font-size: 14px;
+}
+
+.dashboard-button {
+    background-color: #69123c; /* Green */
+    color: #ECDFCC;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.dashboard-button:hover {
+    background-color: #7845a0; /* Darker green on hover */
+}
+
+header {
+    background-color:none;/* Semi-transparent background for header */
+    padding: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
