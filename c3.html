@@ -170,9 +170,35 @@
 
             window.location.href = "trackcomplaint.html";
         });
+        document.getElementById("complaint-form").addEventListener("submit", function(event) {
+    event.preventDefault(); 
+
+    const complaintID = generateComplaintID();
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const wasteType = document.getElementById("waste-type").value;
+    const description = document.getElementById("description").value;
+    const lat = document.getElementById("locationLatitude").value;
+    const lon = document.getElementById("locationLongitude").value;
+
+    if (!name || !email || !wasteType || !description || !lat || !lon) {
+        alert("Please fill in all fields before submitting.");
+        return;
+    }
+
+    alert("Complaint Submitted Successfully!\nComplaint ID: " + complaintID + 
+          "\n\nYou will be redirected to the tracking page in 10 seconds.\nPlease copy your Complaint ID.");
+
+    // Delay navigation by 10 seconds
+    setTimeout(() => {
+        window.location.href = "trackcomplaint.html";
+    }, 10000); // 30000 ms = 30 seconds
+});
+
 
         window.onload = initMap;
     </script>
 
 </body>
 </html>
+
